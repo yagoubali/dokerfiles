@@ -1,0 +1,39 @@
+name: Build All Found Dockerfiles
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  # Job 1: Find all directories with a Dockerfile
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: set-matrix
+        run: |
+          # Find all directories containing a Dockerfile
+          # Convert the list into a JSON array: ["dir1", "dir2/subdir"]
+          DIRS=$(find . -name "Dockerfile" -printf '%h\n' | sed 's|^\./||' | sort -u | jq -R -s -c 'split("\n")[:-1]')
+          echo "matrix=$DIRS" >> $GITHUB_OUTPUT
+
+  # Job 2: Build images based on Job 1's findings
+  build:
+    needs: discover
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Feed the JSON array into the matrix
+        directory: ${{ fromJson(needs.discover.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Build image
+        uses: [Docker Build and Push Action](https://github.com/marketplace/actions/build-and-push-docker-images)@v6
+        with:
+          context: ./${{ matrix.directory }}
+          file: ./${{ matrix.directory }}/Dockerfile
+          push: false # Set to true to push to a registry
+          tags: my-image-${{ matrix.directory }}:latest
