@@ -35,5 +35,5 @@ jobs:
         with:
           context: ./${{ matrix.directory }}
           file: ./${{ matrix.directory }}/Dockerfile
-          push: false # Set to true to push to a registry
+          push: true # Set to true to push to a registry
           tags: my-image-${{ matrix.directory }}:latest
