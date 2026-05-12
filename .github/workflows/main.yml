@@ -28,6 +28,7 @@ jobs:
         # Feed the JSON array into the matrix
         directory: ${{ fromJson(needs.discover.outputs.matrix) }}
     steps:
+      - uses: actions/checkout@v4
       - name: Build image
         uses: [Docker Build and Push Action](https://github.com/marketplace/actions/build-and-push-docker-images)@v6
         with:
