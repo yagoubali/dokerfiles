@@ -52,7 +52,7 @@ jobs:
           echo "name=${{ secrets.DOCKERHUB_USERNAME }}/${SAFE_NAME}:latest" >> $GITHUB_OUTPUT
 
       - name: Build and push image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: ./${{ matrix.directory }}
           file: ./${{ matrix.directory }}/Dockerfile
