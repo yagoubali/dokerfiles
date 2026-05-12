@@ -1,7 +1,5 @@
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-  username: ${{ secrets.DOCKERHUB_USERNAME }}
-  password: ${{ secrets.DOCKERHUB_TOKEN }}
 name: Build All Found Dockerfiles
 
 on:
