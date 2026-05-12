@@ -30,6 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build image
+        uses: docker/build-push-action@v3
         with:
           context: ./${{ matrix.directory }}
           file: ./${{ matrix.directory }}/Dockerfile
