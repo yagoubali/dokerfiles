@@ -58,7 +58,9 @@ jobs:
           # Replace slashes with dashes so nested paths produce valid image names
           # e.g. "apps/api" -> "apps-api"
           SAFE_NAME=$(echo "${{ matrix.directory }}" | tr '/' '-')
-          echo "name=${{ secrets.DOCKERHUB_USERNAME }}/${SAFE_NAME}:latest" >> $GITHUB_OUTPUT
+          echo "dockerhub=${{ secrets.DOCKERHUB_USERNAME }}/${SAFE_NAME}:latest" >> $GITHUB_OUTPUT
+          echo "quay=quay.io/${{ secrets.QUAY_USERNAME }}/${SAFE_NAME}:latest" >> $GITHUB_OUTPUT
+          #echo "name=${{ secrets.DOCKERHUB_USERNAME }}/${SAFE_NAME}:latest" >> $GITHUB_OUTPUT
 
       - name: Build and push image
         uses: docker/build-push-action@v6
@@ -66,6 +68,9 @@ jobs:
           context: ./${{ matrix.directory }}
           file: ./${{ matrix.directory }}/Dockerfile
           push: true
-          tags: ${{ steps.tag.outputs.name }}
+          tags: |
+            ${{ steps.tag.outputs.dockerhub }}
+            ${{ steps.tag.outputs.quay }}
+          #${{ steps.tag.outputs.name }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
