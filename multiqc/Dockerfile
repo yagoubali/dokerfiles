@@ -5,7 +5,10 @@ LABEL description="MultiQC 1.21 for aggregating QC reports"
 LABEL version="1.21"
 
 # Use micromamba to install MultiQC
+USER root
 RUN apt-get update && apt-get install -y procps
+USER $MAMBA_USER
+
 RUN micromamba install -y -n base \
     -c bioconda \
     -c conda-forge \
