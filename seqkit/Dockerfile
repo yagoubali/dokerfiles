@@ -6,6 +6,8 @@ LABEL version="2.13.0"
 
 # Note: the original config uses 'bioconda::seqkit:2.13.0' (colon separator)
 # which is a typo — correct conda syntax uses '=' as the version separator.
+RUN apt-get update && apt-get install -y procps
+
 RUN micromamba install -y -n base \
     -c bioconda \
     -c conda-forge \

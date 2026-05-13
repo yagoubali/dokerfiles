@@ -5,6 +5,8 @@ LABEL description="Python 3.11 environment for PARSE_FASTQC, EVALUATE_QC, REPORT
 LABEL version="3.11"
 
 # Use micromamba to install Python 3.11
+RUN apt-get update && apt-get install -y procps
+
 RUN micromamba install -y -n base \
     -c conda-forge \
     python=3.11 \

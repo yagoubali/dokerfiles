@@ -4,6 +4,7 @@ LABEL maintainer="yagoub.adam@fiocruz.br"
 LABEL description="fastp for adapter trimming and quality filtering"
 
 # Use micromamba to install fastp (latest from bioconda)
+RUN apt-get update && apt-get install -y procps
 RUN micromamba install -y -n base \
     -c bioconda \
     -c conda-forge \

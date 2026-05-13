@@ -5,6 +5,7 @@ LABEL description="FastQC 0.12.1 for raw and trimmed read QC"
 LABEL version="0.12.1"
 
 # Use micromamba to install FastQC
+RUN apt-get update && apt-get install -y procps
 RUN micromamba install -y -n base \
     -c bioconda \
     -c conda-forge \
