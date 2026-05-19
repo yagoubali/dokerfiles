@@ -61,6 +61,9 @@ jobs:
           SAFE_QUAY_USER=$(echo "${{ secrets.QUAY_USERNAME }}" | tr '+' '-' | tr '/' '-')
           echo "dockerhub=${{ secrets.DOCKERHUB_USERNAME }}/${SAFE_NAME}:latest" >> $GITHUB_OUTPUT
           echo "quay=quay.io/${SAFE_QUAY_USER}/${SAFE_NAME}:latest" >> $GITHUB_OUTPUT
+          version=$(cat ./${{ matrix.directory }}/Dockerfile | grep -E 'version=' | cut -d= -f2)
+          echo "quay_version=quay.io/${SAFE_QUAY_USER}/${SAFE_NAME}:${version}" >> $GITHUB_OUTPUT
+          echo "dockerhub_version=${{ secrets.DOCKERHUB_USERNAME }}/${SAFE_NAME}:${version}" >> $GITHUB_OUTPUT
           #echo "quay=quay.io/${{ secrets.QUAY_USERNAME }}/${SAFE_NAME}:latest" >> $GITHUB_OUTPUT
           #echo "name=${{ secrets.DOCKERHUB_USERNAME }}/${SAFE_NAME}:latest" >> $GITHUB_OUTPUT
 
@@ -73,6 +76,8 @@ jobs:
           tags: |
             ${{ steps.tag.outputs.dockerhub }}
             ${{ steps.tag.outputs.quay }}
+            ${{ steps.tag.outputs.dockerhub_version }}
+            ${{ steps.tag.outputs.quay_version }}
           #${{ steps.tag.outputs.name }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
