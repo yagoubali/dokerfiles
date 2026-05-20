@@ -78,10 +78,10 @@ jobs:
           file: ./${{ matrix.directory }}/Dockerfile
           push: true
           tags: |
-            ${{ steps.tag.outputs.dockerhub }}
-            ${{ steps.tag.outputs.quay }}
             ${{ steps.tag.outputs.dockerhub_version }}
             ${{ steps.tag.outputs.quay_version }}
+            #${{ steps.tag.outputs.dockerhub }}
+            #${{ steps.tag.outputs.quay }}
           #${{ steps.tag.outputs.name }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
