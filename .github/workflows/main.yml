@@ -59,8 +59,8 @@ jobs:
           # e.g. "apps/api" -> "apps-api"
           SAFE_NAME=$(echo "${{ matrix.directory }}" | cut -d'/' -f1 | tr '/' '-')
           SAFE_QUAY_USER=$(echo "${{ secrets.QUAY_USERNAME }}" | tr '+' '-' | tr '/' '-')
-          echo "dockerhub=${{ secrets.DOCKERHUB_USERNAME }}/${SAFE_NAME}:latest" >> $GITHUB_OUTPUT
-          echo "quay=quay.io/${SAFE_QUAY_USER}/${SAFE_NAME}:latest" >> $GITHUB_OUTPUT
+          #echo "dockerhub=${{ secrets.DOCKERHUB_USERNAME }}/${SAFE_NAME}:latest" >> $GITHUB_OUTPUT
+          #echo "quay=quay.io/${SAFE_QUAY_USER}/${SAFE_NAME}:latest" >> $GITHUB_OUTPUT
           #version=$(cat ./${{ matrix.directory }}/Dockerfile | grep -E 'version=' | cut -d= -f2)
           version=$(echo "${{ matrix.directory }}" | cut -d'/' -f2 | tr -d "'" | tr -d  '"' | tr -d ' ')
           echo "Derived version: $version"
