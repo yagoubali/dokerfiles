@@ -63,6 +63,8 @@ jobs:
           echo "quay=quay.io/${SAFE_QUAY_USER}/${SAFE_NAME}:latest" >> $GITHUB_OUTPUT
           #version=$(cat ./${{ matrix.directory }}/Dockerfile | grep -E 'version=' | cut -d= -f2)
           version=$(echo "${{ matrix.directory }}" | cut -d'/' -f2 | tr "'" '' | tr '"' '' | tr -d ' ')
+          echo "quay_version=quay.io/${SAFE_QUAY_USER}/${SAFE_NAME}:${version}" 
+          echo "dockerhub_version=${{ secrets.DOCKERHUB_USERNAME }}/${SAFE_NAME}:${version}" 
           echo "quay_version=quay.io/${SAFE_QUAY_USER}/${SAFE_NAME}:${version}" >> $GITHUB_OUTPUT
           echo "dockerhub_version=${{ secrets.DOCKERHUB_USERNAME }}/${SAFE_NAME}:${version}" >> $GITHUB_OUTPUT
           #echo "quay=quay.io/${{ secrets.QUAY_USERNAME }}/${SAFE_NAME}:latest" >> $GITHUB_OUTPUT
