@@ -29,6 +29,7 @@ RUN apt-get update && apt-get install -y \
     squashfs-tools \
     libseccomp-dev \
     gnupg \
+    bash \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -46,10 +47,8 @@ RUN apt-get update && apt-get install -y software-properties-common \
 
 RUN wget -qO - https://sylabs.io | sudo gpg --dearmor -o /usr/share/keyrings/sylabs-archive-keyring.gpg  && \
         echo "deb [signed-by=/usr/share/keyrings/sylabs-archive-keyring.gpg] https://sylabs.io $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/sylabs.list && \
-        apt-get update  && sudo apt-get install -y singularity-ce
-
-
-    apt-get update && apt-get install -y apptainer
+        apt-get update  && apt-get install -y singularity-ce &&
+        apt-get install -y apptainer
 
 # Install necessary system dependencies (curl and bash)
 # RUN apt-get update && \
