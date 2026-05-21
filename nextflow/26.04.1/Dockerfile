@@ -20,7 +20,11 @@ WORKDIR /usr/local/bin
 # Download the specific Nextflow binary version, make it executable, and initialize it
 RUN curl -Ls -o nextflow https://github.com/nextflow-io/nextflow/releases/download/v26.04.1/nextflow && \
     chmod +x nextflow && \
-    ./nextflow -version
+    mv nextflow /usr/local/bin/ && \
+    ./nextflow -version && \
+    mkdir -p /data  && \
+    chmod -R 777 /data
+
 
 # Set the working directory for data processing tasks
 WORKDIR /data
