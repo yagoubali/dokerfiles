@@ -1,5 +1,5 @@
 # Use an official OpenJDK base image as Nextflow requires Java 11 or later
-FROM openjdk:17-slim
+FROM eclipse-temurin:17-jre-noble
 
 # Maintainer metadata
 LABEL maintainer="Yagoub Adam"
