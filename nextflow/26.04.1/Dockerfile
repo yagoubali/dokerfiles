@@ -18,9 +18,8 @@ RUN apt-get update && \
 WORKDIR /usr/local/bin
 
 # Download the specific Nextflow binary version, make it executable, and initialize it
-RUN curl -Ls -o nextflow https://github.com/nextflow-io/nextflow/releases/download/v26.04.1/nextflow && \
+RUN curl -Ls -o /usr/local/bin/nextflow https://github.com/nextflow-io/nextflow/releases/download/v26.04.1/nextflow && \
     chmod +x nextflow && \
-    mv nextflow /usr/local/bin/ && \
     nextflow -version && \
     mkdir -p /data  && \
     chmod -R 777 /data
