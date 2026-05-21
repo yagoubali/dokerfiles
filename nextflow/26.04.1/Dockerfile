@@ -11,6 +11,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     curl \
     bash \
+    openjdk-17-jre-headless \
     && rm -rf /var/lib/apt/lists/*
 
 # Set up the working directory for Nextflow installation
