@@ -21,7 +21,7 @@ WORKDIR /usr/local/bin
 RUN curl -Ls -o nextflow https://github.com/nextflow-io/nextflow/releases/download/v26.04.1/nextflow && \
     chmod +x nextflow && \
     mv nextflow /usr/local/bin/ && \
-    ./nextflow -version && \
+    nextflow -version && \
     mkdir -p /data  && \
     chmod -R 777 /data
 
