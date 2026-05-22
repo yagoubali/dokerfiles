@@ -35,12 +35,14 @@ RUN apt-get update && apt-get install -y \
 
     # Install Docker CLI
 # Correct Docker CLI installation step
+# 2. Install Docker CLI (Using the correct download.docker.com URLs)
 RUN install -m 0755 -d /etc/apt/keyrings \
     && curl -fsSL https://docker.com | gpg --dearmor -o /etc/apt/keyrings/docker.gpg \
     && chmod a+r /etc/apt/keyrings/docker.gpg \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://docker.com $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
     tee /etc/apt/sources.list.d/docker.list > /dev/null \
     && apt-get update && apt-get install -y docker-ce-cli
+
 
 
     # Note: Apptainer is the open-source successor to Singularity
