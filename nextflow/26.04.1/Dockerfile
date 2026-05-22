@@ -33,6 +33,7 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+    # Install Docker CLI
 RUN install -m 0755 -d /etc/apt/keyrings \
     && curl -fsSL https://docker.com | gpg --dearmor -o /etc/apt/keyrings/docker.gpg \
     && chmod a+r /etc/apt/keyrings/docker.gpg \
@@ -45,10 +46,16 @@ RUN apt-get update && apt-get install -y software-properties-common \
     && add-apt-repository -y ppa:apptainer/ppa \
     && apt-get update && apt-get install -y apptainer
 
+    # Install Singularity CE (Community Edition)
 RUN wget -qO - https://sylabs.io | sudo gpg --dearmor -o /usr/share/keyrings/sylabs-archive-keyring.gpg  && \
         echo "deb [signed-by=/usr/share/keyrings/sylabs-archive-keyring.gpg] https://sylabs.io $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/sylabs.list && \
-        apt-get update  && apt-get install -y singularity-ce &&
-        apt-get install -y apptainer
+        apt-get update  && apt-get install -y singularity-ce 
+
+# Install Conda for managing Nextflow dependencies
+RUN curl -sS https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh && \
+    bash /tmp/miniconda.sh -b -p /opt/conda && \
+    rm /tmp/miniconda.sh && \
+    /opt/conda/bin/conda clean -afy
 
 # Install necessary system dependencies (curl and bash)
 # RUN apt-get update && \
